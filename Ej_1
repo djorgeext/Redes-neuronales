@@ -1,0 +1,48 @@
+########## Implementacion del perceptron simple para una funcion AND de 2 entradas
+import numpy as np
+
+sigma = 0.1 # Factor de aprendizaje
+n = 2 # Numero de entradas
+entr1 = np.array([1, 1, -1, -1]) # Entradas
+entr2 = np.array([1, -1, 1, -1])
+w = np.array([0.1,0.1,0.1]) # Inicializacion de los pesos
+########## Definicion de la funcion de entrenamiento "and_ps"
+def and_ps(s1, s2, w):
+    if s1==1 and s2==1:   # calculo yd
+        yd = 1
+    else:
+        yd = -1
+    
+    y = 0  # Initialize y
+    while y!= yd:
+        h = w[0] + w[1]*s1 + w[2]*s2
+        if h>=0:
+            y = 1
+        else:
+            y = -1
+        dw1 = sigma*(yd-y)*s1
+        dw2 = sigma*(yd-y)*s2
+        dw0 = sigma*(yd-y)
+        w[0] = w[0] + dw0
+        w[1] = w[1] + dw1
+        w[2] = w[2] + dw2
+    return w, y, yd
+for k in range(1000):
+    for i in range(4):
+        w, y, yd = and_ps(entr1[i], entr2[i], w)
+        print('w =', w, 'y =', y, 'yd =', yd)
+
+# Verificacion de los resultados
+
+def and_ver(s1, s2, w):
+    h = w[0] + w[1]*s1 + w[2]*s2
+    if h>=0:
+        y = 1
+    else:
+        y = -1
+    return y
+
+for i in range(4):
+    print(and_ver(entr1[i], entr2[i], w))
+    print('\n entr1', entr1[i])
+    print('\n entr2', entr2[i])
