@@ -3,7 +3,7 @@ function [media_ap,p] = grafico(m)
 eta = 0.2;
 w = randn(1, m+1);
 
-[s, yd] = entrada_salida(m,m);
+[s, yd] = entrada_salida(50*m,m);
 for i = 1:1000
     for j = 1:m
         w = perceptron(s(j, :), eta, yd(j), w);
