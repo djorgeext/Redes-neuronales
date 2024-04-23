@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 # Datos de entrada
-x = np.array([[1, 1], [1, -1], [-1, 1], [-1, -1]])
+x = np.array([[1, 1], [1, -1], [-1, 1], [-1, -1]]) # Entradas
 w = np.random.rand(3)  # Corrected the syntax error in w initialization
 sigma = 0.1  # Learning rate
 vector = np.linspace(-1.2, 1.2, 200)
@@ -25,7 +25,7 @@ def andps(s1, s2, w):
 
     return w
 
-for i in range(10000):
+for i in range(1000):
     for i in range(4):
         w = andps(x[i][0], x[i][1], w)
 
@@ -39,11 +39,12 @@ def andver (x, w):
             y = 1
         else:
             y = -1
-        plt.plot(x[i][0], x[i][1], 'ro' if y == 1 else 'bo')
-        
-        print('entradas ',x[i], '\n salidas ', y)
+        plt.plot(x[i][0], x[i][1], 'ro' if y == 1 else 'bo', markersize=15)
+        print('entradas ', x[i], '\n salidas ', y)
+
     rdiscriminante = -w[0]/w[2] - w[1]/w[2]*vector
-    plt.plot(vector, rdiscriminante, label='Discriminante')
+    plt.plot(vector, rdiscriminante, label='Discriminante', linewidth=4)
+    plt.tick_params(axis='both', which='major', labelsize=20)
     plt.show()
 andver(x, w)
 

@@ -12,4 +12,3 @@ function w = perceptron(inp, eta, yd, w)
         w(2:end) = w(2:end) + eta * (yd - y) * inp;
     end
 end
-

@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 # XOR input and output
 X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
@@ -20,12 +21,12 @@ def tanh_derivative(x):
 
 # Genetic algorithm parameters
 population_size = 100
-mutation_rate = 0.001
+mutation_rate = 0.08
 num_generations = 1000
 
 # Perceptron parameters
 input_size = 2
-hidden_size = 2
+hidden_size = 4
 output_size = 1
 
 # Initialize population
@@ -49,7 +50,7 @@ for generation in range(num_generations):
         fitness[i] = -np.sum(np.square(Y - output_layer_output))
 
     # Select parents
-    parents = population[np.argsort(fitness)[-2:]]
+    parents = population[np.argsort(fitness)[-10:]]
 
     # Crossover
     offspring = np.zeros((population_size, hidden_size * (input_size + output_size)))
@@ -77,3 +78,7 @@ output_layer_input = np.dot(hidden_layer_output, output_weights.T)
 output_layer_output = tanh(output_layer_input)
 
 print(output_layer_output)
+plt.plot(fitness)
+plt.xlabel('Generation')
+plt.ylabel('Fitness')
+plt.show()

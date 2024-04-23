@@ -59,6 +59,12 @@ def train(inp,w1,w2,sald,eta,b1,b2):
     w2 += a1.T.dot(delta2) * eta
     w1 += inp.T.dot(delta1) * eta
 
+    # Bias update
+    b2 += np.sum(delta2) * eta
+    b1 += np.sum(delta1) * eta
+
+    return error, w1, w2, b1, b2
+
 # Training loop
 for i in range(epochs):
     train(s, w1, w2, yd, eta, b1, b2)
@@ -78,19 +84,18 @@ plt.show() """
     print('Input:', s[i], 'Output:', a2) """
 
 # Test varying two weights
-error_mesh = np.zeros((200, 200))
-w_aux = np.random.uniform(-2*w1[0][0], 2*(w1[0][0]), 200)
-w_aux2 = np.random.uniform(-2*w1[1][1], 2*(w1[1][1]), 200)
+error_mesh = np.zeros((500, 500))
+w_aux = np.linspace(-10*w1[0][0], 10*w1[0][0], 500)
+w_aux2 = np.linspace(-5*w2[0], 5*w2[0], 500)
 for i in range(len(w_aux)):
     for j in range(len(w_aux2)):
         w1[0][0] = w_aux[i]
-        w1[1][1] = w_aux2[j]
-        for k in range(len(s)):
-            z1 = np.dot(s[k].reshape(1, 2), w1) + b1
-            a1 = tanh(z1)
-            z2 = np.dot(a1, w2) + b2
-            a2 = tanh(z2)
-            error_mesh[i][j] = 0.5*np.sum((yd[k] - a2)**2)
+        w2[0] = w_aux2[j]
+        z1 = np.dot(s, w1) + b1
+        a1 = tanh(z1)
+        z2 = np.dot(a1, w2) + b2
+        a2 = tanh(z2)
+        error_mesh[i][j] = 0.5*np.sum((yd - a2)**2)
             # Create 3D plot
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
@@ -105,7 +110,7 @@ ax.plot_surface(X, Y, error_mesh, cmap='viridis')
 
 # Set labels for axes
 ax.set_xlabel('w[0][0]')
-ax.set_ylabel('w[1][1]')
+ax.set_ylabel('w[1][3]')
 ax.set_zlabel('Error')
 
 # Show the plot
