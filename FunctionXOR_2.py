@@ -70,9 +70,13 @@ for i in range(epochs):
     train(s, w1, w2, yd, eta, b1, b2)
         
 # Plotting the error
-errors = np.array(errors).flatten()
-""" plt.plot(errors)
-plt.show() """
+"""errors = np.array(errors).flatten()
+plt.plot(errors, linewidth=4)
+plt.tick_params(axis='both', which='major', labelsize=20)
+plt.xlabel('Epochs', fontsize=20)
+plt.ylabel('Error', fontsize=20)
+plt.title('Error during training', fontsize=20)
+plt.show()"""
 
 # Test
 
@@ -86,17 +90,17 @@ plt.show() """
 # Test varying two weights
 error_mesh = np.zeros((500, 500))
 w_aux = np.linspace(-10*w1[0][0], 10*w1[0][0], 500)
-w_aux2 = np.linspace(-5*w2[0], 5*w2[0], 500)
+w_aux2 = np.linspace(-5*w2[3], 5*w2[3], 500)
 for i in range(len(w_aux)):
     for j in range(len(w_aux2)):
         w1[0][0] = w_aux[i]
-        w2[0] = w_aux2[j]
-        z1 = np.dot(s, w1) + b1
+        w2[3] = w_aux2[j]
+        z1 = np.dot(s, w1) + b1  # especificar el subindice para s[] y yd[] en caso de que se quiera ver el error para cada uno de los 4 pares de entrada
         a1 = tanh(z1)
         z2 = np.dot(a1, w2) + b2
         a2 = tanh(z2)
         error_mesh[i][j] = 0.5*np.sum((yd - a2)**2)
-            # Create 3D plot
+# Create 3D plot
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
@@ -106,12 +110,12 @@ y = w_aux2
 X, Y = np.meshgrid(x, y)
 
 # Plot the surface
-ax.plot_surface(X, Y, error_mesh, cmap='viridis')
+ax.plot_surface(X, Y, error_mesh, cmap='viridis', alpha=1)
 
 # Set labels for axes
-ax.set_xlabel('w[0][0]')
-ax.set_ylabel('w[1][3]')
-ax.set_zlabel('Error')
+ax.set_xlabel('Primer peso, primera capa', fontsize=20)
+ax.set_ylabel('Cuarto peso, segunda capa', fontsize=20)
+ax.set_zlabel('Error', fontsize=20)
 
 # Show the plot
 plt.show()

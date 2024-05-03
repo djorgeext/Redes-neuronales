@@ -39,11 +39,13 @@ def orver (x, w):
             y = 1
         else:
             y = -1
-        plt.plot(x[i][0], x[i][1], 'ro' if y == 1 else 'bo')
+        plt.plot(x[i][0], x[i][1], 'ro' if y == 1 else 'bo', markersize=15)
         
         print('entradas ',x[i], '\n salidas ', y)
     rdiscriminante = -w[0]/w[2] - w[1]/w[2]*vector
-    plt.plot(vector, rdiscriminante, label='Discriminante')
+    plt.plot(vector, rdiscriminante, label='Discriminante', linewidth=4)
+    plt.tick_params(axis='both', which='major', labelsize=20)
+
     plt.show()
 orver(x, w)
 
