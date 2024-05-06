@@ -1,8 +1,8 @@
 import numpy as np
 
 # XOR input and output
-X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
-Y = np.array([[0], [1], [1], [0]])
+X = np.array([[-1, -1], [-1, 1], [1, -1], [1, 1]])
+Y = np.array([[-1], [1], [1], [-1]])
 
 # Sigmoid function and its derivative
 def sigmoid(x):

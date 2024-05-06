@@ -98,11 +98,16 @@ for i in range(epochs):
 
 # Plotting the error
 errors = np.array(errors).flatten()
-#plt.plot(errors)
-#plt.show()
+plt.plot(errors, linewidth=3)
+plt.xlabel('Actualizaciones del error', fontsize=18)
+plt.ylabel('Error', fontsize=18)
+plt.title('Error evolution', fontsize=18)
+plt.xlim(0, 100000)
+plt.ylim(0, 0.4)
+plt.show()
 
 # Test
-xtest = np.sin(np.random.uniform(0, 2 * np.pi, 200))
+"""xtest = np.sin(np.random.uniform(0, 2 * np.pi, 200))
 ytest = np.cos(np.random.uniform(0, 2 * np.pi, 200))
 ztest = np.random.uniform(-1, 1, 200)
 
@@ -125,4 +130,4 @@ plt.plot(ydtest, ytest, 'r.')
 plt.show()
 
 print(ydtest[100])
-print("\n", ytest[100])
+print("\n", ytest[100])"""

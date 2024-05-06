@@ -21,8 +21,9 @@ def tanh_derivative(x):
 
 # Genetic algorithm parameters
 population_size = 100
-mutation_rate = 0.08
-num_generations = 1000
+mutation_rate = 0.1
+num_generations = 200
+best_individual_fitness = []
 
 # Perceptron parameters
 input_size = 2
@@ -47,15 +48,15 @@ for generation in range(num_generations):
         output_layer_input = np.dot(hidden_layer_output, output_weights.T)
         output_layer_output = tanh(output_layer_input)
 
-        fitness[i] = -np.sum(np.square(Y - output_layer_output))
-
+        fitness[i] = -0.5*np.sum(np.square(Y - output_layer_output))
+    best_individual_fitness.append(np.max(fitness))
     # Select parents
-    parents = population[np.argsort(fitness)[-10:]]
+    parents = population[np.argsort(fitness)[-5:]]
 
     # Crossover
     offspring = np.zeros((population_size, hidden_size * (input_size + output_size)))
     for i in range(population_size):
-        crossover_point = np.random.randint(low=0, high=hidden_size * (input_size + output_size))
+        crossover_point = np.random.randint(low=0, high=12)
         offspring[i, :crossover_point] = parents[0, :crossover_point]
         offspring[i, crossover_point:] = parents[1, crossover_point:]
 
@@ -78,7 +79,7 @@ output_layer_input = np.dot(hidden_layer_output, output_weights.T)
 output_layer_output = tanh(output_layer_input)
 
 print(output_layer_output)
-plt.plot(fitness)
-plt.xlabel('Generation')
-plt.ylabel('Fitness')
+plt.plot(best_individual_fitness, linewidth=4)
+plt.xlabel('Generación', fontsize=20)
+plt.ylabel('Fitness del mejor individuo por generación', fontsize=20)
 plt.show()
