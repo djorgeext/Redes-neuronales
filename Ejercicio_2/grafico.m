@@ -3,13 +3,13 @@ function [media_ap,p] = grafico(m)
 eta = 0.2;
 w = unifrnd(-1, 1, 1, m+1);
 
-[s, yd] = entrada_salida(1000*m,m);
-for i = 1:1000
+[s, yd] = entrada_salida(4*m,m);
+for i = 1:10
     for j = 1:m
         w = perceptron(s(j, :), eta, yd(j), w);
     end
 end
-p = zeros(100,1);
+p = zeros(10,1);
 media_ap = zeros(100,1);
 for g=1:100
     
